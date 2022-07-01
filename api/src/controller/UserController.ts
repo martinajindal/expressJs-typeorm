@@ -1,4 +1,4 @@
-import {Body, Get, JsonController, Post} from 'routing-controllers';
+import { Body, Get, JsonController, Param, Post } from 'routing-controllers';
 import { UserService } from '../service/UserService';
 import { User } from '../entity/User';
 
@@ -8,14 +8,16 @@ export class UserController {
 
     @Get('/')
     async getAllUsers() {
-
-        console.log("organisationId: " + "organisationId");
         return this.userService.getAllUsers();
-        // return "Hello"
+    }
+
+    @Get('/:id')
+    async getOne(@Param('id') id: string) {
+        return await this.userService.getUser(id)
     }
 
     @Post('/create')
-    async createUser(@Body()user: Partial<User>) {
-        return this.userService.createUser(user);        
+    async createUser(@Body() user: Partial<User>) {
+        return this.userService.createUser(user);
     }
 }

@@ -1,4 +1,5 @@
-import {Column, Entity, PrimaryColumn, CreateDateColumn } from 'typeorm';
+import {Column, Entity, PrimaryColumn, CreateDateColumn, OneToMany } from 'typeorm';
+import {Order} from './Order'
 
 export enum Usertype {
     USER = 'user',
@@ -13,4 +14,6 @@ export class User {
     @Column({nullable: false, length: 100}) email: string;
     @Column({nullable: true}) usertype: Usertype;
     @CreateDateColumn() createdDate: Date;
+    @OneToMany(type => Order, order => order.user)
+    orders: Order[];
 }

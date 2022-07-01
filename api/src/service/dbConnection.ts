@@ -2,20 +2,13 @@
 import {createConnection, getConnectionOptions} from 'typeorm'
 
 export const createDbConnection = async() => {
-    console.log('Creating new DB connection');
-    const options = await getConnectionOptions();
-    (options as any).connectionLimit = 2;
-    return await createConnection(options);
+    try {
+        console.log('Creating new DB connection');
+        const options = await getConnectionOptions();
+        (options as any).connectionLimit = 2;
+        return await createConnection(options);
+    } catch (error) {
+        console.log(error);
+        process.exit(1);
+    }
 }
-
-// {
-//     "type": "mysql",
-//     "host": "localhost",
-//     "port": 3306,
-//     "username": "root",
-//     "password": "confidential",
-//     "database": "dev",
-//     "entities": ["src/entity/*.ts"],
-//     "logging": true,
-//     "synchronize": true
-//   } 
