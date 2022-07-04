@@ -29,7 +29,7 @@ export class UserService {
         }
     }
 
-    async createUser(user: Partial<User>) {
+    async createUser(user: Partial<User>, name?: string) {
         try {
             if (user.userId) {
                 const checkUser = await this.entityManagerService.getEntityManager().findOneById(User, user.userId);

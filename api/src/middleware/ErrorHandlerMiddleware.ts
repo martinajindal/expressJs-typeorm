@@ -1,10 +1,9 @@
-import {ExpressErrorMiddlewareInterface, Middleware,} from 'routing-controllers';
-import {NextFunction, Request, Response} from 'express';
+import { ExpressErrorMiddlewareInterface, Middleware, } from 'routing-controllers';
+import { NextFunction } from 'express';
 
-@Middleware({type: 'after', priority: 0})
+@Middleware({ type: 'after', priority: 0 })
 export default class ErrorHandlerMiddleware implements ExpressErrorMiddlewareInterface {
     error(error: any, request: any, response: any, next: NextFunction): void {
-        // This causes errors to respond with the correct code when HttpError is thrown in async functions
         if (!response.headersSent) {
             response.status((error && error.httpCode) || 500);
             response.json({
